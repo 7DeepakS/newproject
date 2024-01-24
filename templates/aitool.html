@@ -1,0 +1,92 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LangChain OpenAI Demo</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        label {
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        input {
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 16px;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: white;
+            padding: 12px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #responseOutput {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ask a Question</h1>
+    <form id="questionForm">
+        <label for="userInput">Your Question:</label>
+        <input type="text" id="userInput" name="userInput">
+        <button type="button" onclick="askQuestion()">Ask</button>
+    </form>
+    <div id="responseOutput"></div>
+
+    <script>
+        function askQuestion() {
+            const userInput = document.getElementById('userInput').value;
+
+            fetch('/ask_question', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({
+                    'user_input': userInput,
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('responseOutput').innerText = data.response;
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>
