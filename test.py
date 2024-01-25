@@ -9,7 +9,7 @@ from langchain_core.prompts import MessagesPlaceholder
 tavily_api_key = "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"
 os.environ["TAVILY_API_KEY"] = tavily_api_key
 prompt = hub.pull("hwchase17/openai-functions-agent")
-api_key = "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"
+api_key = "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"
 llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0, openai_api_key=api_key)
 search = TavilySearchResults(api_key=tavily_api_key)
 retriever_tool = create_retriever_tool(
